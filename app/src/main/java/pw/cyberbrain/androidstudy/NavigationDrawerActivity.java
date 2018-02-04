@@ -1,5 +1,6 @@
 package pw.cyberbrain.androidstudy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -72,8 +73,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_fragment_blue) {
             fragmentTransaction.replace(R.id.content, blueFragment);
         } else if (id == R.id.nav_activity_2) {
-            fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.content));
-            // TODO: second activity
+            //fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.content));
+            // Second activity
+            startActivity(new Intent(this, BottomNavigationActivity.class));
         }
         toolbar.setTitle(title);
         fragmentTransaction.commit();
