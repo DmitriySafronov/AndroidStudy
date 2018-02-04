@@ -1,26 +1,33 @@
 package pw.cyberbrain.androidstudy;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    // Fragments
+    Fragment redFragment;
+    Fragment greenFragment;
+    Fragment blueFragment;
+
+    Toolbar toolbar;
+    private int title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -31,6 +38,11 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // new Fragments
+        redFragment = new RedFragment();
+        greenFragment = new GreenFragment();
+        blueFragment = new BlueFragment();
     }
 
     @Override
@@ -46,18 +58,25 @@ public class NavigationDrawerActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        String title = (String) item.getTitle();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_fragment_red) {
+            fragmentTransaction.replace(R.id.content, redFragment);
+        } else if (id == R.id.nav_fragment_green) {
+            fragmentTransaction.replace(R.id.content, greenFragment);
+        } else if (id == R.id.nav_fragment_blue) {
+            fragmentTransaction.replace(R.id.content, blueFragment);
+        } else if (id == R.id.nav_activity_2) {
+            fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.content));
+            // TODO: second activity
         }
+        toolbar.setTitle(title);
+        fragmentTransaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
