@@ -37,13 +37,17 @@ public class NavigationDrawerActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         // new Fragments
         redFragment = new RedFragment();
         greenFragment = new GreenFragment();
         blueFragment = new BlueFragment();
+
+        // Navigation drawer
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState == null) this.onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_fragment_red));
+        navigationView.setCheckedItem(R.id.nav_fragment_red);
     }
 
     @Override

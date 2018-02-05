@@ -56,7 +56,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
             greenFragment = new GreenFragment();
             blueFragment = new BlueFragment();
 
-
+            // Bottom navigation
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
