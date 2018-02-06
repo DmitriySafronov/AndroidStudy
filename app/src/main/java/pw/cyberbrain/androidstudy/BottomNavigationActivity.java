@@ -1,5 +1,6 @@
 package pw.cyberbrain.androidstudy;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,16 +8,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class BottomNavigationActivity extends AppCompatActivity {
 
     // Fragments
-    Fragment redFragment;
-    Fragment greenFragment;
-    Fragment blueFragment;
+    Fragment firstFragment;
+    Fragment secondFragment;
+    Fragment thirdFragment;
+
+    Toolbar toolbar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -29,18 +33,17 @@ public class BottomNavigationActivity extends AppCompatActivity {
 
             // Handle bottom navigation view item clicks here.
             int id = item.getItemId();
-            String title = (String) item.getTitle();
 
-            if (id == R.id.navigation_home) {
-                fragmentTransaction.replace(R.id.content2, redFragment);
-            } else if (id == R.id.navigation_dashboard) {
-                fragmentTransaction.replace(R.id.content2, greenFragment);
-            } else if (id == R.id.navigation_notifications) {
-                fragmentTransaction.replace(R.id.content2, blueFragment);
+            if (id == R.id.navigation_first) {
+                fragmentTransaction.replace(R.id.content2, firstFragment);
+            } else if (id == R.id.navigation_second) {
+                fragmentTransaction.replace(R.id.content2, secondFragment);
+            } else if (id == R.id.navigation_third) {
+                fragmentTransaction.replace(R.id.content2, thirdFragment);
             } else {
                 mResult = false;
             }
-            //toolbar.setTitle(title);
+
             fragmentTransaction.commit();
             return mResult;
         }
@@ -50,17 +53,19 @@ public class BottomNavigationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_bottom_navigation);
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+//            setSupportActionBar(toolbar);
 
             // new Fragments
-            redFragment = new RedFragment();
-            greenFragment = new GreenFragment();
-            blueFragment = new BlueFragment();
+            firstFragment = new FirstFragment();
+            secondFragment = new SecondFragment();
+            thirdFragment = new ThirdFragment();
 
             // Bottom navigation
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-            navigation.setSelectedItemId(R.id.navigation_home);
+            navigation.setSelectedItemId(R.id.navigation_first);
     }
 
     @Override
@@ -75,14 +80,28 @@ public class BottomNavigationActivity extends AppCompatActivity {
            // Handle action bar item clicks here. The action bar will
            // automatically handle clicks on the Home/Up button, so long
            // as you specify a parent activity in AndroidManifest.xml.
+
+           int mColor = Color.TRANSPARENT;
+
            int id = item.getItemId();
 
            //noinspection SimplifiableIfStatement
-           if (id == R.id.action_settings) {
-               return true;
+           if (id == R.id.settings_yellow) {
+               mColor = Color.YELLOW;
+           } else if (id == R.id.settings_cyan) {
+               mColor = Color.CYAN;
+           } else if (id == R.id.settings_magenta) {
+               mColor = Color.MAGENTA;
            }
 
-           return super.onOptionsItemSelected(item);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            View mView = fragmentManager.findFragmentById(R.id.content2).getView();
+            try {
+                mView.setBackgroundColor(mColor);
+                return true;
+            } catch (Exception e){
+                return super.onOptionsItemSelected(item);
+            }
     }
 
 }
