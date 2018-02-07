@@ -2,6 +2,7 @@ package pw.cyberbrain.androidstudy;
 
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -9,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,11 @@ public class ThirdFragment extends Fragment {
         mTabsAdapter = new TabsAdapter(getFragmentManager());
         mViewPager = mView.findViewById(R.id.my_pager);
         mViewPager.setAdapter(mTabsAdapter);
+
+        TabLayout tabLayout = mView.findViewById(R.id.tabs);
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         return mView;
     }
