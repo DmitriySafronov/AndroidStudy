@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/settings_yellow"
+        android:orderInCategory="100"
+        android:title="Yellow"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/settings_cyan"
+        android:orderInCategory="100"
+        android:title="Cyan"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/settings_magenta"
+        android:orderInCategory="100"
+        android:title="Magenta"
+        app:showAsAction="never" />
+
+</menu>
