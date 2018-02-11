@@ -10,16 +10,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ThirdFragment extends Fragment {
+public class ThirdFragment extends BaseFragment {
 
     List<Fragment> mTabs = new ArrayList<>();
     TabsAdapter mTabsAdapter;
@@ -35,8 +31,8 @@ public class ThirdFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        mTabs.add(new BlueFragment());
         mTabs.add(new RedFragment());
+        mTabs.add(new BlueFragment());
     }
 
 
@@ -50,13 +46,14 @@ public class ThirdFragment extends Fragment {
         mViewPager = mView.findViewById(R.id.my_pager);
         mViewPager.setAdapter(mTabsAdapter);
 
-        TabLayout tabLayout = mView.findViewById(R.id.tabs);
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        TabLayout mTabLayout = mView.findViewById(R.id.tabs);
+        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
         return mView;
     }
+
 
     public class TabsAdapter extends FragmentStatePagerAdapter{
 
@@ -74,4 +71,5 @@ public class ThirdFragment extends Fragment {
             return mTabs.size();
         }
     }
+
 }
